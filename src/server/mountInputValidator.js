@@ -28,7 +28,7 @@ export default (app: $Application, endpoints: Endpoint[]) => {
     app.use((error, req: $Request, res: $Response, next: NextFunction) => {
 
         if (error instanceof SyntaxError) {
-            buildArgumentError(res)("Input json isn't valid")
+            buildArgumentError(res)("Request body isn't valid")
         } else {
             next();
         }

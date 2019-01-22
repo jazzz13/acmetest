@@ -40,7 +40,7 @@ exports.default = (app, endpoints) => {
     app.use((error, req, res, next) => {
 
         if (error instanceof SyntaxError) {
-            (0, _helpers.buildArgumentError)(res)("Input json isn't valid");
+            (0, _helpers.buildArgumentError)(res)("Request body isn't valid");
         } else {
             next();
         }

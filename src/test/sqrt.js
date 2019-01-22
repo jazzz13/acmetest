@@ -1,7 +1,6 @@
 // @flow
 
 import {it} from 'mocha'
-import server from '../server/server.js'
 import {checkResponse, ErrorSchema} from './helpers'
 
 const schema = {
@@ -16,22 +15,20 @@ const schema = {
 };
 
 export default {
-    positive: (chai: any, numbers: number[], results: number[]) => {
+    positive: (request: any, numbers: number[], results: number[]) => {
 
         it(`√ [${numbers.join(',')}] = [${results.join(',')}]`, (done) => {
-            chai.request(server)
-                .post(`/sqrt`)
+            request.post(`/sqrt`)
                 .send({numbers})
                 .end((err, res) => checkResponse({res, status: 200, schema, result: results}, done));
         });
 
     },
 
-    negative: (chai: any, numbers?: any, error: string) => {
+    negative: (request: any, numbers?: any, error: string) => {
 
         it(`Wrong input: "${numbers ? numbers.toString() : 'undefined'}"`, (done) => {
-            chai.request(server)
-                .post(`/sqrt`)
+            request.post(`/sqrt`)
                 .send({numbers})
                 .end((err, res) => checkResponse({res, status: 400, schema: ErrorSchema, error}, done));
         });

@@ -38,6 +38,7 @@ describe('POST /sqrt', () => {
 
     describe('Positive', () => {
 
+        sqrt.positive(request(), [], [])
         sqrt.positive(request(), [81], [9])
         sqrt.positive(request(), [4, 16], [2, 4])
         sqrt.positive(request(), [1, 144, 30], [1, 12, Math.sqrt(30)])

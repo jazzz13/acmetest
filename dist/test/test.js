@@ -53,6 +53,7 @@ const request = () => _chai2.default.request(_server2.default);
 
     (0, _mocha.describe)('Positive', () => {
 
+        _sqrt2.default.positive(request(), [], []);
         _sqrt2.default.positive(request(), [81], [9]);
         _sqrt2.default.positive(request(), [4, 16], [2, 4]);
         _sqrt2.default.positive(request(), [1, 144, 30], [1, 12, Math.sqrt(30)]);

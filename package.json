@@ -1,0 +1,24 @@
+{
+  "name": "acmetest",
+  "version": "1.0.0",
+  "scripts": {
+    "flow": "flow",
+    "build": "babel src/ -d dist/",
+    "start": "npm run flow && npm run build && node ./dist/server/start.js",
+    "test": "npm run flow && npm run build && mocha dist/test/*"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "4.16.2",
+    "jsonschema": "^1.2.4"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "babel-preset-flow": "^6.23.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
+    "flow-bin": "0.91.0",
+    "mocha": "^5.2.0"
+  }
+}

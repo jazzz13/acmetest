@@ -10,7 +10,7 @@ export default (app: $Application, endpoints: Endpoint[]) => {
 
     for (const {path, method, resolver} of endpoints) {
 
-        const hander = (req: $Request, res: $Response) => {
+        const handler = (req: $Request, res: $Response) => {
 
             try {
 
@@ -28,8 +28,8 @@ export default (app: $Application, endpoints: Endpoint[]) => {
         };
 
         switch (method) {
-            case 'get': app.get(path, hander); break;
-            case 'post': app.post(path, hander); break;
+            case 'get': app.get(path, handler); break;
+            case 'post': app.post(path, handler); break;
         }
 
         console.log(`${method} http://localhost:3000${path}`);

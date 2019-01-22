@@ -17,8 +17,19 @@ export default new Endpoint({
     path: '/sqrt',
     method: 'post',
     inputDataSchema: SCHEMA,
-    resolver: ({}) => {
+    resolver: ({body}, argumentError) => {
 
-        return 'i am sqrt!'
+        const result: number[] = [];
+
+        for (const n of body.numbers) {
+
+            if (n < 0) {
+                return argumentError('https://bit.ly/2FT6pcM')
+            }
+
+            result.push(Math.sqrt(n))
+        }
+
+        return result
     }
 })

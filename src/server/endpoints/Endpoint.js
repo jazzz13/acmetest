@@ -2,7 +2,7 @@
 
 type MethodEnum = 'get' | 'post'
 type ArgumentErrorHandler = (string) => void
-type ResolverType = ({query: any, body?: any}, ArgumentErrorHandler) => any
+type ResolverType = ({query: any, body: any}, ArgumentErrorHandler) => any
 
 type Args = {
     path: string,

@@ -1,31 +1,22 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _express = require('express');
+var _express = _interopRequireDefault(require("express"));
 
-var _express2 = _interopRequireDefault(_express);
+var _mountInputValidator = _interopRequireDefault(require("./mountInputValidator"));
 
-var _mountInputValidator = require('./mountInputValidator');
+var _mountEndpoints = _interopRequireDefault(require("./mountEndpoints"));
 
-var _mountInputValidator2 = _interopRequireDefault(_mountInputValidator);
-
-var _mountEndpoints = require('./mountEndpoints');
-
-var _mountEndpoints2 = _interopRequireDefault(_mountEndpoints);
-
-var _index = require('./endpoints/index');
-
-var _index2 = _interopRequireDefault(_index);
+var _index = _interopRequireDefault(require("./endpoints/index"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const app = (0, _express2.default)();
-
-(0, _mountInputValidator2.default)(app, _index2.default);
-
-(0, _mountEndpoints2.default)(app, _index2.default);
-
-exports.default = app;
+const app = (0, _express.default)();
+(0, _mountInputValidator.default)(app, _index.default);
+(0, _mountEndpoints.default)(app, _index.default);
+var _default = app;
+exports.default = _default;

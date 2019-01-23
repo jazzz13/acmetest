@@ -1,48 +1,45 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
+exports.default = void 0;
 
-var _helpers = require('../helpers');
+var _Endpoint = _interopRequireDefault(require("./endpoints/Endpoint"));
 
-var _Endpoint = require('./endpoints/Endpoint');
+var _jsonschema = require("jsonschema");
 
-var _Endpoint2 = _interopRequireDefault(_Endpoint);
-
-var _jsonschema = require('jsonschema');
-
-var _bodyParser = require('body-parser');
-
-var _bodyParser2 = _interopRequireDefault(_bodyParser);
+var _bodyParser = _interopRequireDefault(require("body-parser"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = (app, endpoints) => {
+var _default = (app, endpoints) => {
+  app.use(_bodyParser.default.json());
+  app.use((req, res, next) => {
+    const endpoint = endpoints.find(({
+      path,
+      method
+    }) => path === req.path && method === req.method);
 
-    app.use(_bodyParser2.default.json());
+    if (endpoint && endpoint.inputDataSchema) {
+      const targetField = req.method === 'GET' ? 'query' : 'body';
 
-    app.use((req, res, next) => {
+      if (!(0, _jsonschema.validate)(req[targetField], endpoint.inputDataSchema).valid) {
+        throw new SyntaxError(`Request ${targetField} isn't valid`);
+      }
+    }
 
-        const endpoint = endpoints.find(enpoint => enpoint.path === req.path);
-
-        if (endpoint && endpoint.method === req.method.toLowerCase() && endpoint.inputDataSchema) {
-
-            if (!(0, _jsonschema.validate)(req.body, endpoint.inputDataSchema).valid) {
-
-                throw new SyntaxError();
-            }
-        }
-
-        next();
-    });
-
-    app.use((error, req, res, next) => {
-
-        if (error instanceof SyntaxError) {
-            (0, _helpers.buildArgumentError)(res)("Request body isn't valid");
-        } else {
-            next();
-        }
-    });
+    next();
+  });
+  app.use((error, req, res, next) => {
+    if (error instanceof SyntaxError) {
+      res.status(400).send({
+        error: error.message
+      });
+    } else {
+      next();
+    }
+  });
 };
+
+exports.default = _default;

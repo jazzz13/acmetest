@@ -1,46 +1,50 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
+exports.default = void 0;
 
-var _helpers = require("../helpers");
-
-var _Endpoint = require("./endpoints/Endpoint");
-
-var _Endpoint2 = _interopRequireDefault(_Endpoint);
+var _Endpoint = _interopRequireDefault(require("./endpoints/Endpoint"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = (app, endpoints) => {
+var _default = (app, endpoints) => {
+  console.log('Endpoints:');
 
-    console.log('Endpoints:');
+  for (const {
+    path,
+    method,
+    resolver
+  } of endpoints) {
+    const handler = (req, res) => {
+      try {
+        resolver(req, res);
+      } catch (e) {
+        res.status(400).send({
+          error: e.message
+        });
+      }
+    };
 
-    for (const { path, method, resolver } of endpoints) {
+    switch (method) {
+      case 'GET':
+        app.get(path, handler);
+        break;
 
-        const handler = (req, res) => {
-
-            try {
-
-                const response = resolver(req, (0, _helpers.buildArgumentError)(res));
-
-                if (response !== undefined) {
-
-                    res.send({ result: response });
-                }
-            } catch (e) {
-
-                (0, _helpers.sendError)(res, 500, 'Internal server error');
-            }
-        };
-
-        switch (method) {
-            case 'get':
-                app.get(path, handler);break;
-            case 'post':
-                app.post(path, handler);break;
-        }
-
-        console.log(`${method} http://localhost:3000${path}`);
+      case 'POST':
+        app.post(path, handler);
+        break;
     }
+
+    console.log(`${method} http://localhost:3000${path}`);
+  }
+
+  app.use((error, req, res, next) => {
+    res.status(500).send({
+      error: 'Internal server error'
+    });
+  });
 };
+
+exports.default = _default;

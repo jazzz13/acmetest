@@ -1,8 +1,7 @@
 // @flow
 
-import {buildArgumentError, sendError} from "../helpers";
 import Endpoint from "./endpoints/Endpoint";
-import type { $Application, $Request, $Response } from 'express'
+import type {$Application, $Request, $Response, NextFunction} from 'express'
 
 export default (app: $Application, endpoints: Endpoint[]) => {
 
@@ -13,25 +12,23 @@ export default (app: $Application, endpoints: Endpoint[]) => {
         const handler = (req: $Request, res: $Response) => {
 
             try {
-
-                const response = resolver(req, buildArgumentError(res));
-
-                if (response !== undefined) {
-
-                    res.send({result: response})
-                }
+                resolver(req, res);
             }
             catch (e) {
-
-                sendError(res, 500, 'Internal server error')
+                res.status(400).send({error: e.message});
             }
         };
 
         switch (method) {
-            case 'get': app.get(path, handler); break;
-            case 'post': app.post(path, handler); break;
+            case 'GET': app.get(path, handler); break;
+            case 'POST': app.post(path, handler); break;
         }
 
         console.log(`${method} http://localhost:3000${path}`);
     }
+
+    app.use((error, req: $Request, res: $Response, next: NextFunction) => {
+
+        res.status(500).send({error: 'Internal server error'});
+    });
 }

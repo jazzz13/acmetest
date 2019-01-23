@@ -1,8 +1,9 @@
 // @flow
 
-type MethodEnum = 'get' | 'post'
-type ArgumentErrorHandler = (string) => void
-type ResolverType = ({query: any, body: any}, ArgumentErrorHandler) => any
+import type {$Request, $Response} from "express";
+
+type MethodEnum = 'GET' | 'POST'
+type ResolverType = (req: $Request, res: $Response) => void
 
 type Args = {
     path: string,

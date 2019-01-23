@@ -1,9 +1,8 @@
 // @flow
 
-import {buildArgumentError} from '../helpers'
 import Endpoint from "./endpoints/Endpoint"
 import {validate} from 'jsonschema'
-import bodyParser from "body-parser";
+import bodyParser from "body-parser"
 import type {$Application, $Request, $Response, NextFunction} from 'express'
 
 export default (app: $Application, endpoints: Endpoint[]) => {
@@ -12,13 +11,15 @@ export default (app: $Application, endpoints: Endpoint[]) => {
 
     app.use((req: $Request, res: $Response, next: NextFunction) => {
 
-        const endpoint = endpoints.find(enpoint => enpoint.path === req.path);
+        const endpoint = endpoints.find(({path, method}) => path === req.path && method === req.method);
 
-        if (endpoint && endpoint.method === req.method.toLowerCase() && endpoint.inputDataSchema) {
+        if (endpoint && endpoint.inputDataSchema) {
 
-            if (!validate(req.body, endpoint.inputDataSchema).valid) {
+            const targetField = req.method === 'GET' ? 'query' : 'body'
 
-                throw new SyntaxError
+            if(!validate((req: any)[targetField], endpoint.inputDataSchema).valid) {
+
+                throw new SyntaxError(`Request ${targetField} isn't valid`)
             }
         }
 
@@ -28,7 +29,7 @@ export default (app: $Application, endpoints: Endpoint[]) => {
     app.use((error, req: $Request, res: $Response, next: NextFunction) => {
 
         if (error instanceof SyntaxError) {
-            buildArgumentError(res)("Request body isn't valid")
+            res.status(400).send({error: error.message});
         } else {
             next();
         }

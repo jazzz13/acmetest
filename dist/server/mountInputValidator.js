@@ -21,11 +21,13 @@ var _default = (app, endpoints) => {
       method
     }) => path === req.path && method === req.method);
 
-    if (endpoint && endpoint.inputDataSchema) {
-      const targetField = req.method === 'GET' ? 'query' : 'body';
+    if (endpoint) {
+      if (endpoint.bodyDataSchema && !(0, _jsonschema.validate)(req.body, endpoint.bodyDataSchema).valid) {
+        throw new SyntaxError(`Request body isn't valid`);
+      }
 
-      if (!(0, _jsonschema.validate)(req[targetField], endpoint.inputDataSchema).valid) {
-        throw new SyntaxError(`Request ${targetField} isn't valid`);
+      if (endpoint.queryDataSchema && !(0, _jsonschema.validate)(req.query, endpoint.queryDataSchema).valid) {
+        throw new SyntaxError(`Request query isn't valid`);
       }
     }
 

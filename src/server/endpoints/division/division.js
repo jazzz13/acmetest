@@ -15,6 +15,6 @@ const SCHEMA = {
 export default new Endpoint({
     path: '/division',
     method: 'GET',
-    inputDataSchema: SCHEMA,
+    queryDataSchema: SCHEMA,
     resolver
 })

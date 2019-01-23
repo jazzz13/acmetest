@@ -13,13 +13,16 @@ export default (app: $Application, endpoints: Endpoint[]) => {
 
         const endpoint = endpoints.find(({path, method}) => path === req.path && method === req.method);
 
-        if (endpoint && endpoint.inputDataSchema) {
+        if (endpoint) {
 
-            const targetField = req.method === 'GET' ? 'query' : 'body'
+            if (endpoint.bodyDataSchema && !validate(req.body, endpoint.bodyDataSchema).valid) {
 
-            if(!validate((req: any)[targetField], endpoint.inputDataSchema).valid) {
+                throw new SyntaxError(`Request body isn't valid`)
+            }
 
-                throw new SyntaxError(`Request ${targetField} isn't valid`)
+            if (endpoint.queryDataSchema && !validate(req.query, endpoint.queryDataSchema).valid) {
+
+                throw new SyntaxError(`Request query isn't valid`)
             }
         }
 

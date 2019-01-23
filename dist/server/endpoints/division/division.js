@@ -27,7 +27,7 @@ const SCHEMA = {
 var _default = new _Endpoint.default({
   path: '/division',
   method: 'GET',
-  inputDataSchema: SCHEMA,
+  queryDataSchema: SCHEMA,
   resolver: _resolver.default
 });
 

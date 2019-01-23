@@ -27,7 +27,7 @@ const SCHEMA = {
 var _default = new _Endpoint.default({
   path: '/sqrt',
   method: 'POST',
-  inputDataSchema: SCHEMA,
+  bodyDataSchema: SCHEMA,
   resolver: _resolver.default
 });
 

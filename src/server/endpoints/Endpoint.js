@@ -9,7 +9,8 @@ type Args = {
     path: string,
     method: MethodEnum,
     resolver: ResolverType,
-    inputDataSchema?: any
+    bodyDataSchema?: any,
+    queryDataSchema?: any
 }
 
 export default class Endpoint {
@@ -17,7 +18,8 @@ export default class Endpoint {
     path: string;
     method: MethodEnum;
     resolver: ResolverType;
-    inputDataSchema: ?any;
+    bodyDataSchema: ?any;
+    queryDataSchema: ?any;
 
     constructor(arg: Args) {
 

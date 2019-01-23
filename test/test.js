@@ -3,7 +3,7 @@
 import {describe} from 'mocha'
 import chai from 'chai'
 import chaiHttp from 'chai-http'
-import server from '../server/server.js'
+import server from '../src/server.js'
 import division from './division'
 import sqrt from './sqrt'
 

@@ -1,9 +1,9 @@
 // @flow
 
-import type {$Request, $Response} from "express";
+import type {Request, Response} from '../types'
 
 type MethodEnum = 'GET' | 'POST'
-type ResolverType = (req: $Request, res: $Response) => void
+type ResolverType = (req: Request, res: Response) => void
 
 type Args = {
     path: string,

@@ -3,13 +3,13 @@
 import Endpoint from "./endpoints/Endpoint"
 import {validate} from 'jsonschema'
 import bodyParser from "body-parser"
-import type {$Application, $Request, $Response, NextFunction} from 'express'
+import type {Request, Response, Application, NextFunction} from './types'
 
-export default (app: $Application, endpoints: Endpoint[]) => {
+export default (app: Application, endpoints: Endpoint[]): void => {
 
     app.use(bodyParser.json());
 
-    app.use((req: $Request, res: $Response, next: NextFunction) => {
+    app.use((req: Request, res: Response, next: NextFunction) => {
 
         const endpoint = endpoints.find(({path, method}) => path === req.path && method === req.method);
 
@@ -29,9 +29,10 @@ export default (app: $Application, endpoints: Endpoint[]) => {
         next();
     });
 
-    app.use((error, req: $Request, res: $Response, next: NextFunction) => {
+    app.use((error, req: Request, res: Response, next: NextFunction) => {
 
         if (error instanceof SyntaxError) {
+            req.logger.warning(`Bad request ${req.path}: ${error.message}`);
             res.status(400).send({error: error.message});
         } else {
             next();

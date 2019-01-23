@@ -1,8 +1,8 @@
 // @flow
 
 import Endpoint from './Endpoint'
-import sqrt from './sqrt'
-import division from './division'
+import sqrt from './sqrt/index'
+import division from './division/index'
 
 const endpoints: Endpoint[] = [
     sqrt,

@@ -1,8 +1,8 @@
 // @flow
 
-import type {$Request, $Response} from 'express'
+import type {Request, Response} from '../../types'
 
-export default ({query}: $Request, res: $Response) => {
+export default ({query, logger}: Request, res: Response) => {
 
     const [a, b] = [query.a, query.b].map(x => parseFloat(x))
 
@@ -14,5 +14,9 @@ export default ({query}: $Request, res: $Response) => {
         throw new Error('Zero division error')
     }
 
-    res.send({result: a / b})
+    const result = a / b
+
+    logger.info(`division ${a} / ${b} = ${result}`);
+
+    res.send({result})
 }

@@ -16,6 +16,7 @@ describe('GET /division', () => {
         division.positive(request(), 10, 2, 5);
         division.positive(request(), 100, 3, 100 / 3);
         division.positive(request(), 0, 13, 0);
+        division.positive(request(), 12345678912345678, 2, 6172839456172839);
 
     });
 
@@ -42,6 +43,7 @@ describe('POST /sqrt', () => {
         sqrt.positive(request(), [81], [9])
         sqrt.positive(request(), [4, 16], [2, 4])
         sqrt.positive(request(), [1, 144, 30], [1, 12, Math.sqrt(30)])
+        sqrt.positive(request(), [999998000001], [999999])
 
     });
 

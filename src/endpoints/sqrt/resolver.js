@@ -1,22 +1,19 @@
 // @flow
 
-import type {Request, Response} from '../../types'
+import type { Request, Response } from '../../types';
 
-export default ({body, logger}: Request, res: Response) => {
+export default ({ body, logger }: Request, res: Response) => {
+  const result: number[] = [];
 
-    const result: number[] = [];
-
-    for (const n of body.numbers) {
-
-        if (n < 0) {
-
-            throw new Error('https://bit.ly/2FT6pcM')
-        }
-
-        result.push(Math.sqrt(n))
+  for (const n of body.numbers) {
+    if (n < 0) {
+      throw new Error('https://bit.ly/2FT6pcM');
     }
 
-    logger.info(`sqrt[${body.numbers.toString()}] = [${result.toString()}]`);
+    result.push(Math.sqrt(n));
+  }
 
-    res.send({result})
-}
+  logger.info(`sqrt[${body.numbers.toString()}] = [${result.toString()}]`);
+
+  res.send({ result });
+};

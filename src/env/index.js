@@ -1,5 +1,5 @@
 // @flow
 
-import ENV from './env'
+import ENV from './env';
 
-export default ENV
+export default ENV;

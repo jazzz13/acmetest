@@ -1,6 +1,6 @@
 // @flow
 
-import type {Request, Response} from '../types'
+import type { Request, Response } from '../types';
 
 type MethodEnum = 'GET' | 'POST'
 type ResolverType = (req: Request, res: Response) => void
@@ -14,15 +14,17 @@ type Args = {
 }
 
 export default class Endpoint {
-
     path: string;
+
     method: MethodEnum;
+
     resolver: ResolverType;
+
     bodyDataSchema: ?any;
+
     queryDataSchema: ?any;
 
     constructor(arg: Args) {
-
-        Object.assign(this, arg)
+      Object.assign(this, arg);
     }
 }

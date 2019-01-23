@@ -1,12 +1,12 @@
 // @flow
 
-import Endpoint from './Endpoint'
-import sqrt from './sqrt/index'
-import division from './division/index'
+import Endpoint from './Endpoint';
+import sqrt from './sqrt/index';
+import division from './division/index';
 
 const endpoints: Endpoint[] = [
-    sqrt,
-    division,
+  sqrt,
+  division,
 ];
 
-export default endpoints
+export default endpoints;

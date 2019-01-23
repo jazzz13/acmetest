@@ -1,5 +1,5 @@
 // @flow
 
-import sqrt from './sqrt'
+import sqrt from './sqrt';
 
-export default sqrt
+export default sqrt;

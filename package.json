@@ -5,6 +5,7 @@
     "flow": "flow",
     "build": "babel src/ -d dist/src",
     "buildTests": "npm run build && babel test/ -d dist/test",
+    "eslint": "eslint ./src ./test --fix",
     "start": "npm run flow && npm run build && NODE_ENV=production node ./dist/src/start.js",
     "test": "npm run flow && npm run buildTests && NODE_ENV=test mocha dist/test/test.js"
   },
@@ -19,8 +20,13 @@
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-flow": "^7.0.0",
+    "babel-eslint": "^10.0.1",
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
+    "eslint": "^5.12.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-flowtype": "^3.2.1",
+    "eslint-plugin-import": "^2.15.0",
     "flow-bin": "0.91.0",
     "mocha": "^5.2.0"
   }

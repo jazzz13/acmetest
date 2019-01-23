@@ -1,6 +1,6 @@
 // @flow
 
 
-import division from './division'
+import division from './division';
 
-export default division
+export default division;

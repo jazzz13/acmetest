@@ -1,5 +1,5 @@
 // @flow
 
-import Logger from './Logger'
+import Logger from './Logger';
 
-export default Logger
+export default Logger;

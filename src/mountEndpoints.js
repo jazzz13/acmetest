@@ -1,7 +1,7 @@
 // @flow
 
 import Endpoint from "./endpoints/Endpoint";
-import type {Request, Response, Application, NextFunction} from './types'
+import type {Request, Response, Application} from './types'
 
 export default (app: Application, endpoints: Endpoint[]) => {
 
@@ -28,10 +28,4 @@ export default (app: Application, endpoints: Endpoint[]) => {
 
         console.log(`${method} http://localhost:3000${path}`);
     }
-
-    app.use((error, req: Request, res: Response, next: NextFunction) => {
-
-        req.logger.error(`Server error ${req.path}: ${error.message}`);
-        res.status(500).send({error: 'Internal server error'});
-    });
 }

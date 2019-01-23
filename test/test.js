@@ -21,7 +21,7 @@ describe('GET /division', () => {
 
     describe('Negative', () => {
 
-        const hint = "Request query isn't valid";
+        const hint = "Request query doesn't match schema";
 
         division.negative(request(), '?a=10&b=asd', hint);
         division.negative(request(), '?b=asd', hint);
@@ -52,7 +52,7 @@ describe('POST /sqrt', () => {
         sqrt.negative(request(), [-10], calmDown)
         sqrt.negative(request(), [200, -1], calmDown)
 
-        const wrongSchemaMessage = "Request body isn't valid"
+        const wrongSchemaMessage = "Request body doesn't match schema"
 
         sqrt.negative(request(), undefined, wrongSchemaMessage)
         sqrt.negative(request(), {foo: 'bar'}, wrongSchemaMessage)
